@@ -3,5 +3,11 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Users/Денис/git/console_updater/src/console_updater/mysql-connector-java-5.1.33-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Денис/git/console_updater/src/console_updater/activejdbc-1.4.10-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Денис/git/console_updater/src/console_updater/javalite-common-1.4.10-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Денис/git/console_updater/src/console_updater/slf4j-api-1.7.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Денис/git/console_updater/src/console_updater/slf4j-simple-1.7.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Денис/git/console_updater/src/console_updater/activejdbc-instrumentation-1.4.10-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Денис/git/console_updater/src/console_updater/javassist-3.8.0.GA.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
