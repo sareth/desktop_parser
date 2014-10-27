@@ -1,4 +1,4 @@
-package console_updater;
+package schedule_updater;
 
 import java.util.Date;
 

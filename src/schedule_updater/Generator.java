@@ -1,4 +1,4 @@
-package console_updater;
+package schedule_updater;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -33,8 +33,8 @@ public class Generator extends JFrame {
 	static String DB_ADDRESS = "//46.61.143.135/denchik";
 	static String DB_USER = "denchik";
 	static String DB_PASS = "E4cfYcvZA7pLpD9z";
-	private final static String DRIVER = "com.mysql.jdbc.Driver";
-	private final static String CONNECTION = "jdbc:mysql:" + DB_ADDRESS + "?useUnicode=true&characterEncoding=utf8";
+	final static String DRIVER = "com.mysql.jdbc.Driver";
+	final static String CONNECTION = "jdbc:mysql:" + DB_ADDRESS + "?useUnicode=true&characterEncoding=utf8";
 	public static ArrayList<TimeTable> timetable = new ArrayList<TimeTable>();
 	public static ArrayList<Rings> rings = new ArrayList<Rings>();
 	public static int value = 0;
@@ -122,6 +122,7 @@ public class Generator extends JFrame {
 				startButton.setEnabled(false);
 				startButton.setFocusable(false);
 				progressBar.setString("Preparing data...");
+				progressBar.setIndeterminate(true);
 				try {
 					insertingData();
 					StatusLineTimer slt = new StatusLineTimer();
@@ -150,6 +151,7 @@ public class Generator extends JFrame {
 
 	public static void insertingData() throws SQLException {
 		new Thread(new Runnable() {
+			@SuppressWarnings({ "deprecation", "unused" })
 			@Override
 			public void run() {
 				try {
@@ -161,7 +163,12 @@ public class Generator extends JFrame {
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
 				}
-
+				
+				//Читает файл rings.xml
+				new ReadRings();
+				//Читает файл data.xml
+				new ReadTimetable();
+				
 				GregorianCalendar c = new GregorianCalendar();
 				c.set(2014, 8, 1, 0, 0, 0);
 				GregorianCalendar endcal = new GregorianCalendar();
@@ -259,8 +266,8 @@ public class Generator extends JFrame {
 						c.add(Calendar.DAY_OF_MONTH, 1);
 
 					}
-
-					for (int i = 0; i <= timetable.size(); i++) {
+					progressBar.setIndeterminate(false);
+					for (int i = 0; i < timetable.size(); i++) {
 						// System.out.print(timetable.get(i).getTeacher()+" lesson="+timetable.get(i).getLessonNumber()+" "+timetable.get(i).getDateBegins().toString()+"/"+timetable.get(i).getDateEnds().toString()+" weeknumber="+timetable.get(i).getWeekNumber()+"\n");
 						value = (100 * i) / timetable.size();
 						NumberFormat formatter = NumberFormat.getNumberInstance(Locale.US);
@@ -355,6 +362,7 @@ public class Generator extends JFrame {
 			
 		}
 
+		@SuppressWarnings({ "static-access", "deprecation" })
 		public void run() {
 			while (true) {
 				try {
@@ -362,11 +370,13 @@ public class Generator extends JFrame {
 				} catch (InterruptedException ie) {
 					continue;
 				}
-				if (value > progressBar.getMaximum()) {
+				if (value >= progressBar.getMaximum()) {
 					progressBar.setValue(progressBar.getMaximum());
 				} else {
 					progressBar.setValue(value);
-					if (value==timetable.size()){
+					if (value==100){
+						progressBar.setValue(100);
+						progressBar.setString("Complited!");
 						gettime.stop();
 					}
 					

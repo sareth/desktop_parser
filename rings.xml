@@ -1,0 +1,8 @@
+<rings>
+  <lesson number="1" begin_time="08:00" end_time="09:30"/>
+  <lesson number="2" begin_time="09:40" end_time="11:10"/>
+  <lesson number="3" begin_time="11:40" end_time="13:10"/>
+  <lesson number="4" begin_time="13:50" end_time="15:20"/>
+  <lesson number="5" begin_time="15:30" end_time="17:00"/>
+  <lesson number="6" begin_time="17:10" end_time="18:40"/>
+</rings>
