@@ -4,26 +4,28 @@ import org.jdom2.*;
 import org.jdom2.input.*;
 
 import java.io.*;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class ReadRings {
 	public ReadRings() {
 		// read rings
-		// Объект класса InsertRingsIntoDB
+		// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ InsertRingsIntoDB
 		InsertDataIntoDB db = new InsertDataIntoDB();
-		// Метод вычищает таблицу на сервере для загрузки данных
+		// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 		db.dropTableRings();
 
 		try {
-			// создаем новый парсер
+			// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 			SAXBuilder parser = new SAXBuilder();
-			// берем файлик
-			// TODO: сделать диалог выбора файла или автоматическое чтение
-			// конфига
+			// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+			// TODO: пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+			// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			FileReader fr = new FileReader("rings.xml");
-			// получаем док
+			// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
 			Document rDoc = parser.build(fr);
-			// парсим Root element
+			// пїЅпїЅпїЅпїЅпїЅпїЅ Root element
 			System.out.println("Root node of rings: " + rDoc.getRootElement().getName());
 			// List child elements of root
 			List<Element> temp = rDoc.getRootElement().getChildren();
@@ -32,13 +34,19 @@ public class ReadRings {
 				System.out.print(temp.get(i).getAttributeValue("number") + " ");
 				System.out.print(temp.get(i).getAttributeValue("begin_time") + " ");
 				System.out.print(temp.get(i).getAttributeValue("end_time") + "\n");
-				// получаем атрибут номер из рут ноды
+				// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 				int number = Integer.valueOf(temp.get(i).getAttributeValue("number"));
-				// получаем атрибут начала пары из рут ноды
+				// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 				String beginTime = temp.get(i).getAttributeValue("begin_time");
-				// получаем атрибут конца пары из рут ноды
+				// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 				String endTime = temp.get(i).getAttributeValue("end_time");
-
+				int value = (100 * i) / temp.size();
+				NumberFormat formatter = NumberFormat.getNumberInstance(Locale.US);
+				formatter.setMinimumFractionDigits(2);
+				double j = (double) 100 * i / temp.size();
+				GeneratorFrame.progressBar.setIndeterminate(false);
+				GeneratorFrame.progressBar.setValue(value);
+				GeneratorFrame.progressBar.setString(formatter.format(j) + "%");
 				// insert data in base
 				db.insertRings(number, beginTime, endTime);
 			}

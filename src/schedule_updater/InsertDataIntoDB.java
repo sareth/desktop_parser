@@ -6,61 +6,117 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import javax.swing.JOptionPane;
+
 public class InsertDataIntoDB {
 	
-	/** убивает таблицу Rings*/
+	public static boolean testConnection(){
+		
+		try{
+			Class.forName(GeneratorFrame.DRIVER).newInstance();
+		}catch (InstantiationException e){
+			JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
+		}catch (IllegalAccessException e){
+			JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
+		}catch (ClassNotFoundException e){
+				JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
+		}
+		try(Connection connection = DriverManager.getConnection(GeneratorFrame.CONNECTION, GeneratorFrame.DB_USER, GeneratorFrame.DB_PASS);
+	            Statement statement = connection.createStatement();
+				){
+				
+	            	statement.executeQuery("select * from rings limit 1");
+	            	
+			}catch(SQLException e){
+				JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
+				return false;
+			}
+		
+		return true;
+		
+	}
 	public void dropTableRings(){
 	try{
-		Class.forName(Generator.DRIVER).newInstance();
+		Class.forName(GeneratorFrame.DRIVER).newInstance();
 	}catch (InstantiationException e){
-		e.printStackTrace();
+		JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
 	}catch (IllegalAccessException e){
-		e.printStackTrace();
+		JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
 	}catch (ClassNotFoundException e){
-			e.printStackTrace();
+			JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
 	}
 	//clear table rings
-	try(Connection connection = DriverManager.getConnection(Generator.CONNECTION, Generator.DB_USER, Generator.DB_PASS);
+	try(Connection connection = DriverManager.getConnection(GeneratorFrame.CONNECTION, GeneratorFrame.DB_USER, GeneratorFrame.DB_PASS);
             Statement statement = connection.createStatement();
 			){
 			
             	statement.executeUpdate("truncate table rings");
             	System.out.print("Clear table Rings \n");
 		}catch(SQLException e){
-			e.printStackTrace();
+			JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
 		}
 	}
 	public void dropTableSchedule(){
 		try{
-			Class.forName(Generator.DRIVER).newInstance();
+			Class.forName(GeneratorFrame.DRIVER).newInstance();
 		}catch (InstantiationException e){
-			e.printStackTrace();
+			JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
 		}catch (IllegalAccessException e){
-			e.printStackTrace();
+			JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
 		}catch (ClassNotFoundException e){
-				e.printStackTrace();
+				JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
 		}
 		//clear table rings
-		try(Connection connection = DriverManager.getConnection(Generator.CONNECTION, Generator.DB_USER, Generator.DB_PASS);
+		try(Connection connection = DriverManager.getConnection(GeneratorFrame.CONNECTION, GeneratorFrame.DB_USER, GeneratorFrame.DB_PASS);
 	            Statement statement = connection.createStatement();
 				){
 				
 	            	statement.executeUpdate("truncate table Schedule");
 	            	System.out.print("Clear table Schedule \n");
 			}catch(SQLException e){
-				e.printStackTrace();
+				JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
 			}
 		}
-	/** убивает таблицу TableTimetable*/
+	
 	public void dropTableTimetable(){
 	try{
-		Class.forName(Generator.DRIVER).newInstance();
+		Class.forName(GeneratorFrame.DRIVER).newInstance();
 	}catch (InstantiationException e){
-		e.printStackTrace();
+		JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
 	}catch (IllegalAccessException e){
-		e.printStackTrace();
+		JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
 	}catch (ClassNotFoundException e){
-			e.printStackTrace();
+			JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
 	}
 	//clear table rings
 	String createTable = "CREATE TABLE `timetable` ( " +
@@ -76,66 +132,84 @@ public class InsertDataIntoDB {
 		")"+
 		"COLLATE='utf8_general_ci'"+
 		"ENGINE=InnoDB;";
-	try(Connection connection = DriverManager.getConnection(Generator.CONNECTION, Generator.DB_USER, Generator.DB_PASS);
+	try(Connection connection = DriverManager.getConnection(GeneratorFrame.CONNECTION, GeneratorFrame.DB_USER, GeneratorFrame.DB_PASS);
             Statement statement = connection.createStatement()){
 			
             	statement.executeUpdate("drop table timetable");
             	statement.execute(createTable);
             	System.out.print("Clear table Rings \n");
 		}catch(SQLException e){
-			e.printStackTrace();
+			JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
 		}
 	}
-	/** заполняет таблицу Rings*/
+	/** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ Rings*/
 	public void insertRings(int number, String beginTime, String endTime){
 		try{
-			Class.forName(Generator.DRIVER).newInstance();
+			Class.forName(GeneratorFrame.DRIVER).newInstance();
 		}catch (InstantiationException e){
-			e.printStackTrace();
+			JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
 		}catch (IllegalAccessException e){
-			e.printStackTrace();
+			JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
 		}catch (ClassNotFoundException e){
-				e.printStackTrace();
+				JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
 		}
 		
-		try(Connection connection = DriverManager.getConnection(Generator.CONNECTION, Generator.DB_USER, Generator.DB_PASS);
+		try(Connection connection = DriverManager.getConnection(GeneratorFrame.CONNECTION, GeneratorFrame.DB_USER, GeneratorFrame.DB_PASS);
 	            Statement statement = connection.createStatement()){
 				   	statement.executeUpdate("insert into rings values ("+number+", '"+beginTime+"', '"+endTime+"')");
 	            	System.out.print("\n This data already in base... \n");
 			}catch(SQLException e){
-				e.printStackTrace();
+				JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
 			}
 	}
-	/** заполняет таблицу Timetable*/
+	/** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ Timetable*/
 	public void insertTimetable(String teacherName, int weekNumber, int dayNumber, String dayName, int lessonNumber, String classSubject, String shortClassSubject, String group, String room) throws UnsupportedEncodingException{
 		Properties properties=new Properties();
-        properties.setProperty("user",Generator.DB_USER);
-        properties.setProperty("password",Generator.DB_PASS);
+        properties.setProperty("user",GeneratorFrame.DB_USER);
+        properties.setProperty("password",GeneratorFrame.DB_PASS);
         /*
-          настройки указывающие о необходимости конвертировать данные из Unicode
-	  в UTF-8, который используется в нашей таблице для хранения данных
+          пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ Unicode
+	  пїЅ UTF-8, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         */
         properties.setProperty("useUnicode","true");
         properties.setProperty("charSet","UTF-8");
 		/**/
 		try{
-			Class.forName(Generator.DRIVER).newInstance();
+			Class.forName(GeneratorFrame.DRIVER).newInstance();
 		}catch (InstantiationException e){
-			e.printStackTrace();
+			JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
 		}catch (IllegalAccessException e){
-			e.printStackTrace();
+			JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
 		}catch (ClassNotFoundException e){
-				e.printStackTrace();
+				JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
 		}
 		
 		
-		try(Connection connection = DriverManager.getConnection(Generator.CONNECTION, properties);
+		try(Connection connection = DriverManager.getConnection(GeneratorFrame.CONNECTION, properties);
 	            Statement statement = connection.createStatement()){
 				   	statement.executeUpdate("insert into timetable (Teacher,WeekNumber,DayNumber,DayName,LessonNumber,ClassSubject,ShortClassSubject,`Group`,Room) values ('"+teacherName+"', "+ weekNumber + ", "+ dayNumber + ", '"+ dayName +"', "+ lessonNumber +", '" + classSubject+ "', '" + shortClassSubject +"', '" + group +"', '" + room + "')");
 	            	
 				   	System.out.print("\n This data already in base... \n");
 			}catch(SQLException e){
-				e.printStackTrace();
+				JOptionPane
+						.showMessageDialog(GeneratorFrame.frame,
+								"Check, are you correctly input login, password and address of database? \n Connection error!");;
 			}
 	}
 	

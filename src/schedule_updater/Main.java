@@ -11,7 +11,7 @@ public class Main {
 	public static void main(String[] args) throws ParseException, SQLException {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new Generator();
+                new GeneratorFrame();
             }
         });	
 		
