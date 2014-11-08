@@ -22,7 +22,7 @@ public class ReadRings {
 			// ����� ������
 			// TODO: ������� ������ ������ ����� ��� �������������� ������
 			// �������
-			FileReader fr = new FileReader("rings.xml");
+			FileReader fr = new FileReader(GeneratorFrame.pathToRings.getText());
 			// �������� ���
 			Document rDoc = parser.build(fr);
 			// ������ Root element

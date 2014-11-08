@@ -72,7 +72,7 @@ public class InsertDataIntoDB {
 								"Check, are you correctly input login, password and address of database? \n Connection error!");;
 		}
 	}
-	public void dropTableSchedule(){
+	public static void dropTableSchedule(){
 		try{
 			Class.forName(GeneratorFrame.DRIVER).newInstance();
 		}catch (InstantiationException e){
@@ -137,7 +137,7 @@ public class InsertDataIntoDB {
 			
             	statement.executeUpdate("drop table timetable");
             	statement.execute(createTable);
-            	System.out.print("Clear table Rings \n");
+            	System.out.print("Clear table TimeTable \n");
 		}catch(SQLException e){
 			JOptionPane
 						.showMessageDialog(GeneratorFrame.frame,

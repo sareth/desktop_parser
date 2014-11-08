@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -23,6 +24,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -53,7 +55,8 @@ public class GeneratorFrame extends JFrame {
 	static JTextField dbuser = new JTextField();
 	static JPasswordField dbpass = new JPasswordField();
 	public final static JFrame frame = new JFrame("Schedules generator");
-	
+	static JTextField pathToRings = new JTextField();
+	static JTextField pathToTimeTable = new JTextField();
 	public GeneratorFrame() {
 		
 
@@ -79,8 +82,11 @@ public class GeneratorFrame extends JFrame {
 		panel.add(Box.createHorizontalGlue());
 		JPanel allPanel = new JPanel();
 		allPanel.setLayout(new BoxLayout(allPanel, BoxLayout.Y_AXIS));
+		panel.add(Box.createVerticalGlue());
 		allPanel.add(ringsadd);
+		panel.add(Box.createVerticalGlue());
 		allPanel.add(timetableadd);
+		panel.add(Box.createVerticalGlue());
 		allPanel.add(scheduleadd);
 		allPanel.add(Box.createHorizontalGlue());
 		allPanel.add(new JLabel("Database address:"));
@@ -93,6 +99,38 @@ public class GeneratorFrame extends JFrame {
 		dbpass.setEchoChar('*');
 		allPanel.add(dbpass);
 		dbpass.setText(DB_PASS);
+		allPanel.add(new JLabel("Path to rings.xml"));
+		allPanel.add(pathToRings);
+		JButton buttonRings = new JButton("Find");
+        buttonRings.setAlignmentX(CENTER_ALIGNMENT);
+        allPanel.add(buttonRings);
+        buttonRings.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileopen = new JFileChooser();             
+                int ret = fileopen.showDialog(null, "Открыть файл");                
+                if (ret == JFileChooser.APPROVE_OPTION) {
+                    File file = fileopen.getSelectedFile();
+                    pathToRings.setText(file.getPath());
+                }
+            }
+        });
+        
+        allPanel.add(new JLabel("Path to timetable.xml"));
+        allPanel.add(pathToTimeTable);
+        JButton buttonTime = new JButton("Find");
+		buttonTime.setAlignmentX(CENTER_ALIGNMENT);
+		allPanel.add(buttonTime);
+		buttonTime.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileopen = new JFileChooser();             
+                int ret = fileopen.showDialog(null, "Открыть файл");                
+                if (ret == JFileChooser.APPROVE_OPTION) {
+                    File file = fileopen.getSelectedFile();
+                    pathToTimeTable.setText(file.getPath());
+                }
+            }
+        });
+        
 		panel.add(allPanel);
 		JPanel buttonsPanel = new JPanel();
 
@@ -184,7 +222,7 @@ public class GeneratorFrame extends JFrame {
 		frame.getContentPane().setLayout(new BorderLayout());
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 
-		frame.setPreferredSize(new Dimension(300, 300));
+		frame.setPreferredSize(new Dimension(300, 450));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setLocationRelativeTo(null);

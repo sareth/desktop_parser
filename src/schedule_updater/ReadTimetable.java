@@ -19,7 +19,7 @@ public class ReadTimetable {
 			
 			SAXBuilder parser = new SAXBuilder();
 			
-		    FileReader fr = new FileReader("data.xml");
+		    FileReader fr = new FileReader(GeneratorFrame.pathToTimeTable.getText());
 		    
 		    Document rDoc = parser.build(fr);
 		    
@@ -98,6 +98,6 @@ public class ReadTimetable {
 		catch (Exception ex) {
 			System.out.println(ex.getMessage());
 	    }
-	db.dropTableSchedule();	
+		
 	}
 }

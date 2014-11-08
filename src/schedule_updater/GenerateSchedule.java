@@ -15,9 +15,10 @@ import java.util.Locale;
 public class GenerateSchedule {
 	public static ArrayList<TimeTable> timetable = new ArrayList<TimeTable>();
 	public static ArrayList<Rings> rings = new ArrayList<Rings>();
-
+	
 	public GenerateSchedule() throws SQLException {
 		getData();
+		insertSchedule();
 	}
 
 	public static void getData() throws SQLException {
@@ -130,6 +131,7 @@ public class GenerateSchedule {
 		}
 	}
 	public static void insertSchedule() throws SQLException{
+		InsertDataIntoDB.dropTableSchedule();
 		for (int i = 0; i <= timetable.size(); i++) {
 			// System.out.print(timetable.get(i).getTeacher()+" lesson="+timetable.get(i).getLessonNumber()+" "+timetable.get(i).getDateBegins().toString()+"/"+timetable.get(i).getDateEnds().toString()+" weeknumber="+timetable.get(i).getWeekNumber()+"\n");
 			GeneratorFrame.value = (100 * i) / timetable.size();
